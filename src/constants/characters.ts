@@ -12,3 +12,8 @@ export const MYSTERIOUS_ROBED_FIGURE: Character = {
   name: "???",
   description: "A mysterious, robed figure",
 };
+
+export const YIAYIA: Character = {
+  name: "Yiayia tou xoriou",
+  description: "Local yiayia asking you 'tinos eisai sy?'"
+}
