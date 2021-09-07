@@ -85,34 +85,35 @@ app.get("/quest/start/impossible", (req, res) => {
     }
   })
 });
-
-app.get("quest/start/easy", (req, res)=>{
+app.get("/quest/start/easy", (req, res) => {
   res.json({
-    location:"Ikaria",
+    location: "Ikaria",
     speech: {
-      speaker: YIAYIA,
-      text: "Tinos eisai sy??",
+      speaker:{
+        name: "Alex"
+      },
+      text: "Tinos eisai esy??"
     },
     options: {
-      respondFriendly: "/quest/start/easy/friendly-response", 
+      respondFriendly: "/quest/start/easy/friendly-response",
       respondAggressively: "/quest/start/easy/aggro-response",
-    },
-  });
+    }
+  })
 });
 
-
-app.get("quest/start/hard", (req,res)=>{
+app.get("/quest/start/hard", (req, res) => {
   res.json({
-    location:"Loch Nes",
+    location: "Loch Nes",
     speech: {
       speaker: KOI,
-      text: "Do you have your lucky charm? If not, prepare for a battle",
+      text: "Do you have your lucky charm? If not, prepare for a battle!"
     },
     options: {
-      yes: "/quest/start/hard/yes", 
+      yes: "/quest/start/hard/yes",
       no: "/quest/start/hard/no",
-    },
-  });
+    }
+  })
 });
+
 
 export default app;

@@ -99,7 +99,7 @@ test("GET /quest/start/easy starts game with an easy boss", async () => {
   expect(response.body.location).toBe("Ikaria");
 
   // mini boss speaker
-  expect(response.body.speech.speaker).toMatchObject(YIAYIA)
+  expect(response.body.speech.speaker.name).toBe("Alex");
 
   // boss speaker message
   expect(response.body.speech.text).toMatch(/tinos/i);
@@ -117,7 +117,7 @@ test("GET /quest/start/hard starts game with a challenging boss", async () => {
   expect(response.body.location).toBe("Loch Nes");
 
   // mini boss speaker
-  expect(response.body.speech.speaker).toMatchObject(KOI)
+  expect(response.body.speech.speaker).toEqual(KOI);
 
   // boss speaker message
   expect(response.body.speech.text).toMatch(/lucky/i);
