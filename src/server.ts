@@ -3,7 +3,7 @@ import {
   ADVENTURE_ADMIN,
   MYSTERIOUS_ROBED_FIGURE,
 } from "./constants/characters";
-import { CAVE_EXTERIOR, HANDFORTH_PARISH_COUNCIL } from "./constants/locations";
+import { CAVE_EXTERIOR, HANDFORTH_PARISH_COUNCIL, UNDERWATER_CAVE } from "./constants/locations";
 
 const app = express();
 
@@ -71,7 +71,7 @@ app.get("/quest/decline", (req, res) => {
 
 app.get("/quest/start/impossible", (req, res) => {
   res.json({
-    location: "Underwater cave",
+    location: UNDERWATER_CAVE,
     speech: {
       speaker:{
         name: "Admiral Octopus"
