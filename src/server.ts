@@ -1,9 +1,11 @@
 import express from "express";
 import {
   ADVENTURE_ADMIN,
+  KOI,
   MYSTERIOUS_ROBED_FIGURE,
+  YIAYIA,
 } from "./constants/characters";
-import { CAVE_EXTERIOR, HANDFORTH_PARISH_COUNCIL, UNDERWATER_CAVE } from "./constants/locations";
+import { CAVE_EXTERIOR, FRIENDLY_ISLAND, HANDFORTH_PARISH_COUNCIL, UNDERWATER_CAVE } from "./constants/locations";
 
 const app = express();
 
@@ -82,6 +84,35 @@ app.get("/quest/start/impossible", (req, res) => {
       restart: "/"
     }
   })
-})
+});
+
+app.get("quest/start/easy", (req, res)=>{
+  res.json({
+    location:"Ikaria",
+    speech: {
+      speaker: YIAYIA,
+      text: "Tinos eisai sy??",
+    },
+    options: {
+      respondFriendly: "/quest/start/easy/friendly-response", 
+      respondAggressively: "/quest/start/easy/aggro-response",
+    },
+  });
+});
+
+
+app.get("quest/start/hard", (req,res)=>{
+  res.json({
+    location:"Loch Nes",
+    speech: {
+      speaker: KOI,
+      text: "Do you have your lucky charm? If not, prepare for a battle",
+    },
+    options: {
+      yes: "/quest/start/hard/yes", 
+      no: "/quest/start/hard/no",
+    },
+  });
+});
 
 export default app;

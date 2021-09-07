@@ -1,7 +1,7 @@
 import supertest from "supertest";
 import app from "./server";
-import { ADVENTURE_ADMIN, MYSTERIOUS_ROBED_FIGURE } from "./constants/characters";
-import { CAVE_EXTERIOR, HANDFORTH_PARISH_COUNCIL } from "./constants/locations";
+import { ADVENTURE_ADMIN, KOI, MYSTERIOUS_ROBED_FIGURE, YIAYIA } from "./constants/characters";
+import { CAVE_EXTERIOR, FRIENDLY_ISLAND, HANDFORTH_PARISH_COUNCIL } from "./constants/locations";
 
 test("GET / responds with a welcome message from our mysterious robed figure", async () => {
   const response = await supertest(app).get("/");
@@ -74,6 +74,7 @@ test("GET /quest/start/impossible responds with instant 'death'", async () => {
   expect(response.body.options).toMatchObject({ restart: "/" });
 });
 
+
 test("GET /help shows description of DnD type of game", async () => {
   const response = await supertest(app).get("/help");
 
@@ -88,4 +89,41 @@ test("GET /help shows description of DnD type of game", async () => {
 
   // includes option to to go back to start
   expect(response.body.options).toMatchObject({ backToStart: "/" });
+});
+
+
+test("GET /quest/start/easy starts game with an easy boss", async () => {
+  const response = await supertest(app).get("/quest/start/easy");
+
+  // located in Ikaria
+  expect(response.body.location).toBe("Ikaria");
+
+  // mini boss speaker
+  expect(response.body.speech.speaker).toMatchObject(YIAYIA)
+
+  // boss speaker message
+  expect(response.body.speech.text).toMatch(/tinos/i);
+
+  // includes option to respond
+  expect(response.body.options).toMatchObject({ respondFriendly: "/quest/start/easy/friendly-response", 
+  respondAggressively: "/quest/start/easy/aggro-response"});
+});
+
+
+test("GET /quest/start/hard starts game with a challenging boss", async () => {
+  const response = await supertest(app).get("/quest/start/hard");
+
+  // located in Loch Nes
+  expect(response.body.location).toBe("Loch Nes");
+
+  // mini boss speaker
+  expect(response.body.speech.speaker).toMatchObject(KOI)
+
+  // boss speaker message
+  expect(response.body.speech.text).toMatch(/lucky/i);
+  expect(response.body.speech.text).toMatch(/charm/i);
+
+  // includes option to respond
+  expect(response.body.options).toMatchObject({ yes: "/quest/start/hard/yes", 
+  no: "/quest/start/hard/no"});
 });

@@ -17,3 +17,8 @@ export const YIAYIA: Character = {
   name: "Yiayia tou xoriou",
   description: "Local yiayia asking you 'tinos eisai sy?'"
 }
+
+export const KOI: Character = {
+  name: "Loch Nes Koi",
+  description: "A large blue, golden and red Koi spitting fire"
+}
