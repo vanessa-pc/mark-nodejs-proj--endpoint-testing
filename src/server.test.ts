@@ -1,7 +1,7 @@
 import supertest from "supertest";
 import app from "./server";
-import { MYSTERIOUS_ROBED_FIGURE } from "./constants/characters";
-import { CAVE_EXTERIOR } from "./constants/locations";
+import { ADVENTURE_ADMIN, MYSTERIOUS_ROBED_FIGURE } from "./constants/characters";
+import { CAVE_EXTERIOR, HANDFORTH_PARISH_COUNCIL } from "./constants/locations";
 
 test("GET / responds with a welcome message from our mysterious robed figure", async () => {
   const response = await supertest(app).get("/");
@@ -72,4 +72,20 @@ test("GET /quest/start/impossible responds with instant 'death'", async () => {
 
   // includes option to restart
   expect(response.body.options).toMatchObject({ restart: "/" });
+});
+
+test("GET /help shows description of DnD type of game", async () => {
+  const response = await supertest(app).get("/help");
+
+  // there is _some_ location
+  expect(response.body.location).toBe(HANDFORTH_PARISH_COUNCIL);
+
+  // there is _some_ speaker
+  expect(response.body.speech.speaker).toEqual(ADVENTURE_ADMIN);
+
+  // response.body.speech.text (help description) is of type string
+  expect(typeof response.body.speech.text).toBe("string");
+
+  // includes option to to go back to start
+  expect(response.body.options).toMatchObject({ backToStart: "/" });
 });
