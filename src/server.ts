@@ -69,4 +69,19 @@ app.get("/quest/decline", (req, res) => {
   });
 });
 
+app.get("/quest/start/impossible", (req, res) => {
+  res.json({
+    location: "Underwater cave",
+    speech: {
+      speaker:{
+        name: "Admiral Octopus"
+      },
+      text: "A massive octopus/dragon hybrid shoots fireballs that cause excruciating pain when hit with them."
+    },
+    options: {
+      restart: "/"
+    }
+  })
+})
+
 export default app;
